@@ -19,7 +19,6 @@ Role Variables
 Default variables are:
 
     rbenv:
-      env: system
       version: v0.4.0
       ruby_version: 2.2.0
 
@@ -60,13 +59,11 @@ Default variables are:
 
 Description:
 
-- ` rbenv.env ` - Type of rbenv installation. Allows 'system' or 'user' values
 - ` rbenv.version ` - Version of rbenv to install (tag from [rbenv releases page](https://github.com/sstephenson/rbenv/releases))
-- ` rbenv.ruby_version ` - Version of ruby to install as global rbenv ruby
+- ` rbenv.ruby_versions ` - List of ruby versions to install
 - ` rbenv_repo ` - Repository with source code of rbenv to install
 - ` rbenv_plugins ` - Array of Hashes with information about plugins to install
 - ` rbenv_root ` - Install path
-- ` rbenv_users ` - Array of usernames for multiuser install. User must be present in the system
 - ` default_gems_file ` - This is Rbenv's plugin _rbenv-default-gems_. Sets the path to a default-gems file of your choice (_don't set it_ if you want to use the default file `files/default-gems`)
 
 Example:
@@ -74,13 +71,10 @@ Example:
     - hosts: web
       vars:
         rbenv:
-          env: user
           version: v0.4.0
           ruby_version: 2.0.0-p353
       roles:
-        - role: zzet.rbenv
-          rbenv_users:
-            - user
+        - {role: rbenv, sudo: yes}
 
 Dependencies
 ------------
